@@ -12,11 +12,9 @@ const router = express.Router();
 // la route signup
 router.post('/signup',userController.signup);
 
-// test
-router.get('/',userController.test);
 
 // la route login
-//router.post("/login" , userController.login)
+router.post("/login" , userController.login)
 
 // exportation du module
 module.exports = router;

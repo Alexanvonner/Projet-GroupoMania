@@ -7,13 +7,5 @@ logging: false,//passer a true pour voir les différentes requêtes effectuées 
 
 
 
-// sequelize
-//  .authenticate()
-//  .then(() => {
-//   console.info('INFO - Database connected.')
-//  })
-//  .catch(err => {
-//   console.error('ERROR - Unable to connect to the database:', err)
-//  })
 
 exports.connexion = connexion;

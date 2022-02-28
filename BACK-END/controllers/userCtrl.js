@@ -1,6 +1,6 @@
 // import
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require('../middleware/jwt');
 const dotenv = require('dotenv');
 require('dotenv').config();
 // importation models de la bdd User.js
@@ -49,9 +49,7 @@ exports.signup = function (req, res) {
                         isAdmin: true,
                     })
                     .then(function (newUser) {
-                            return res.status(201).json({
-                                'userId': userFound.id
-                            });
+                            return res.status(201).json({'userId': newUser.userId});
                         })
                         .catch(function (err) {
                             return res.status(500).json({ 'error': 'cannot add user'+err.message });
@@ -65,8 +63,37 @@ exports.signup = function (req, res) {
     });
 };
     
+exports.login = function (req,res){
+    // Params
+    const email = req.body.email;
+    const password = req.body.password;
+    
+    if (email == null  || password == null) {
+        return res.status(400).json({'error' : 'missing parameters'});
+    }
+    
+    models.User.findOne({
+        where: { email: email },
+    })
+    .then(function(userFound){
+        if (userFound) {
+            // Je compare le mdp saisie par celui dans la db
+            bcrypt.compare(password, userFound.password).then(function(result){
+              // si le resultat de la comparaison est OK je retourne un token à l'user
+              if (result) 
+              {
+                  return res.status(200).json({
+                      'userId' : userFound.userId,
+                      'token'  : 'THE TOKEN'
+                  });
+              }  
+            })
+        }else{
+            return res.status(403).json({'error' : 'invalid password'});
+        }
+    }).catch(function(){
+        return res.status(500).json({"error" : "unable to verify user"})
+    })
+    
+    };
 
-
-exports.test = (req,res,next) => {
- return res.status(200).json({"resultat" : "je suis ici "});
-};
