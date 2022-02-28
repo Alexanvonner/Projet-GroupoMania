@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/signup',userController.signup);
 
 // test
-router.get('/test',userController.test);
+router.get('/',userController.test);
 
 // la route login
 //router.post("/login" , userController.login)

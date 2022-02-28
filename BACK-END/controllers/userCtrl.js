@@ -16,8 +16,7 @@ const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 // ROUTES
 exports.signup = function (req, res) {
     // Params 
-    console.log(req.body);
-
+   
     var email = req.body.email;
     var password = req.body.password;
     var username = req.body.username;
@@ -42,7 +41,7 @@ exports.signup = function (req, res) {
             // salt combien de fois sera executer l'algo de hashage
             bcrypt.hash(password, 10)
                 .then(hash => {
-                    const newUser = new models.User.create({
+                 models.User.create({
                         email: email,
                         password: hash,
                         username: username,
@@ -55,14 +54,14 @@ exports.signup = function (req, res) {
                             });
                         })
                         .catch(function (err) {
-                            return res.status(500).json({ 'error': 'cannot add user' });
+                            return res.status(500).json({ 'error': 'cannot add user'+err.message });
                         });
                 });
         } else {
             return res.status(409).json({ 'error': 'user already exist' });
         }
     }).catch(function (error) {
-        return res.status(500).json({ 'error': 'unable to verify user' });
+        return res.status(500).json({ 'error': 'unable to verify user'});
     });
 };
     
