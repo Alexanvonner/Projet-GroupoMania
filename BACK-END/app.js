@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 
 const userRoutes = require('./routes/userRoute');
+const messageRoutes = require('./routes/messageRoute');
 
 //importation de MORGAN ( logger http)
  const morgan = require('morgan');
@@ -18,7 +19,7 @@ const app = express();
 
 
 
-// pour afficher les requests & les responses directement dans la console 
+//pour afficher les requests & les responses directement dans la console 
 //app.use(morgan("dev"));
 
  app.use((req, res, next) => {
@@ -37,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
  app.use('/api/auth', userRoutes);
-//app.use('/api', messageRoutes);
+ app.use('/api', messageRoutes);
 
 
 

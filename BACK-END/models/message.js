@@ -9,7 +9,7 @@ const Message =  connexion.define('message',{
      likes: Sequelize.INTEGER(255)
 },{tableName: 'Message',timestamps:false, underscored: false});
 
-User.sync({force : true})
+Message.sync({force : true})
   
 
  exports.Message = Message;
