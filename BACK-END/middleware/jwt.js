@@ -3,12 +3,11 @@ jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 require('dotenv').config();
 
-const SECRET_KEY = 'ICKFICKDICJISWKISCID';
 
 module.exports = (req, res, next) => {
     try {
       const token = req.headers.authorization.split(' ')[1];    
-      const decodedToken = jwt.verify(token,'ICKFICKDICJISWKISCID');
+      const decodedToken = jwt.verify(token,,`${process.env.SECRETE_KEY_JWT}`);
   
       const userId = decodedToken.userId;
       

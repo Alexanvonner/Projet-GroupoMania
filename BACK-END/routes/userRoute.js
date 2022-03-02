@@ -9,11 +9,9 @@ const userController = require("../controllers/userCtrl");
 // la fonction Router()
 const router = express.Router();
 
-// la route signup
+// route signup
 router.post('/signup',userController.signup);
-
-
-// la route login
+// route login
 router.post("/login" , userController.login)
 
 // exportation du module

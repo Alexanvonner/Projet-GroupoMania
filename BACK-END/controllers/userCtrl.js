@@ -87,7 +87,7 @@ exports.login = function (req,res){
                     token: jwt.sign(
                         // 3 arguments
                         {userId : userFound.userId},
-                        'ICKFICKDICJISWKISCID',
+                        `${process.env.SECRETE_KEY_JWT}`,
                         {expiresIn : '12h'}
                     )
                   });
