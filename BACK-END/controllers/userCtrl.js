@@ -84,7 +84,7 @@ exports.login = function (req,res){
               {
                   return res.status(200).json({
                       'userId' : userFound.userId,
-                      'token'  : 'THE TOKEN'
+                      'token'  : jwt.generateTokenForUser(userFound)
                   });
               }  
             })

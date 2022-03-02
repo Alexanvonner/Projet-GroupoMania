@@ -11,8 +11,7 @@ module.exports = {
             userId : userData.userId,
             isAdmin : userData.isAdmin
         },
-         SECRET_KEY,
-         {expireIn : '1h'})
-        
+        SECRET_KEY , { expiresIn: 60 * 60 });
     }
 }
+
