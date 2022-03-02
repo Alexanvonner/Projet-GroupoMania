@@ -1,6 +1,6 @@
 // import
 const bcrypt = require("bcrypt");
-const jwt = require('../middleware/jwt');
+jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 require('dotenv').config();
 // importation models de la bdd User.js
@@ -82,9 +82,14 @@ exports.login = function (req,res){
               // si le resultat de la comparaison est OK je retourne un token à l'user
               if (result) 
               {
-                  return res.status(200).json({
-                      'userId' : userFound.userId,
-                      'token'  : jwt.generateTokenForUser(userFound)
+                res.status(200).json({
+                    userId: userFound.userId,
+                    token: jwt.sign(
+                        // 3 arguments
+                        {userId : userFound.userId},
+                        'ICKFICKDICJISWKISCID',
+                        {expiresIn : '12h'}
+                    )
                   });
               }  
             })

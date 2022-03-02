@@ -5,13 +5,21 @@ require('dotenv').config();
 
 const SECRET_KEY = 'ICKFICKDICJISWKISCID';
 
-module.exports = {
-    generateTokenForUser: function(userData){
-        return jwt.sign({
-            userId : userData.userId,
-            isAdmin : userData.isAdmin
-        },
-        SECRET_KEY , { expiresIn: 60 * 60 });
+module.exports = (req, res, next) => {
+    try {
+      const token = req.headers.authorization.split(' ')[1];    
+      const decodedToken = jwt.verify(token,'ICKFICKDICJISWKISCID');
+  
+      const userId = decodedToken.userId;
+      
+      if (req.body.userId && req.body.userId !== userId) {
+        throw 'Invalid user ID';
+      } else {
+        next();
+      }
+    } catch {
+      res.status(401).json({
+        error: 'Invalid request!'
+      });
     }
-}
-
+  };
